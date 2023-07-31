@@ -3,6 +3,7 @@ package com.myproject.ScreenMatch.Controller;
 import com.myproject.ScreenMatch.Model.DadosCadastroFilme;
 import com.myproject.ScreenMatch.Model.Filme;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +17,15 @@ public class FilmeController {
 
     private List<Filme> filmes = new ArrayList<>();
 
-    @GetMapping
+    @GetMapping("/formulario")
     public String carregaPaginaFormulario(){
         return "filmes/formulario";
+    }
+
+    @GetMapping
+    public String carregaPaginaListagem(Model model){
+        model.addAttribute("lista", filmes);
+        return "filmes/listagem";
     }
 
     @PostMapping
@@ -27,6 +34,8 @@ public class FilmeController {
         filmes.add(filme);
         System.out.println(filmes);
 
-        return "filmes/formulario";
+        return "redirect:/filmes";
     }
+
+
 }
